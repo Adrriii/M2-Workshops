@@ -21,6 +21,10 @@
             <%= workshop.description %>        
         </div>        
         <a type="button" class="btn btn-secondary" href="/workshop/<%= workshop.name %>">Edit</a>
+        <form action="/remove-workshop" method="post">
+            <input type='hidden' name="name" value="<%= workshop.name %>">
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
     </li>
 <% }); %>
 </ul>
