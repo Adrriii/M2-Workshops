@@ -33,14 +33,32 @@ function addWorkshop(name, description) {
 }
 
 function removeWorkshopByName(name) {
-    inMemoryWorkshop.splice(inMemoryWorkshop.findIndex(workshop => workshop.name === name), 1);
+    return new Promise((resolve, reject) => {
+        if (!name) {
+            reject(new Error("Workshop name required"))
+        }
+        inMemoryWorkshop.splice(inMemoryWorkshop.findIndex(workshop => workshop.name === name), 1);
+        resolve();
+    })
 }
 
 function updateWorkshop(name_old, name, description) {
-    return getWorkshopByName(name_old).then( workshop => { 
-        workshop.name = name; 
-        workshop.description = description 
-    });
+    return new Promise((resolve, reject) => {
+        if (!name_old) {
+            reject(new Error("Workshop name required"))
+        }
+        if (!name) {
+            reject(new Error("New Workshop name required"))
+        }
+        if (!description) {
+            reject(new Error("New Workshop description required"))
+        }
+        getWorkshopByName(name_old).then( workshop => { 
+            workshop.name = name; 
+            workshop.description = description 
+            resolve()
+        });
+    })
 }
 
 module.exports = {
