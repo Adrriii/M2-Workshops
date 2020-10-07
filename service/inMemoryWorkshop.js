@@ -1,4 +1,4 @@
-inMemoryWorkshop = []
+let inMemoryWorkshop = []
 
 
 function getWorkshopList() {
@@ -12,7 +12,7 @@ function getWorkshopByName(name) {
         if (!name) {
             reject(new Error("name parameter is required"))
         }
-        resolve(inMemoryWorkshop.find(workshop => workshop.name === workshop))
+        resolve(inMemoryWorkshop.find(workshop => workshop.name === name))
     })
 }
 
@@ -33,15 +33,14 @@ function addWorkshop(name, description) {
 }
 
 function removeWorkshopByName(name) {
-    return new Promise((resolve, reject) => {
-        reject(new Error("Not implemented"))
-    })
+    inMemoryWorkshop.splice(inMemoryWorkshop.findIndex(workshop => workshop.name === name), 1);
 }
 
-function updateWorkshop(name) {
-    return new Promise((resolve, reject) => {
-        reject(new Error("Not implemented"))
-    })
+function updateWorkshop(name_old, name, description) {
+    return getWorkshopByName(name_old).then( workshop => { 
+        workshop.name = name; 
+        workshop.description = description 
+    });
 }
 
 module.exports = {
